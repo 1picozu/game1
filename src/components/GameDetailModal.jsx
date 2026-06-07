@@ -196,7 +196,7 @@ export default function GameDetailModal({ game, onClose }) {
     setNewsLoading(p => ({ ...p, [idx]: false }));
   };
 
-  const platforms = [...new Set((game.platforms||[]).map(p => {
+  const platformRaw = (game.platforms||[]).map(p => {
     if(/pc|windows/i.test(p))       return { label:'PC',          icon:'💻' };
     if(/playstation5/i.test(p))     return { label:'PS5',         icon:'🎮' };
     if(/playstation4/i.test(p))     return { label:'PS4',         icon:'🎮' };
@@ -207,7 +207,13 @@ export default function GameDetailModal({ game, onClose }) {
     if(/mac/i.test(p))              return { label:'Mac',         icon:'🍎' };
     if(/android|ios/i.test(p))      return { label:'모바일',       icon:'📱' };
     return { label:p.slice(0,10), icon:'🕹️' };
-  }).map(p=>JSON.stringify(p))).map(p=>JSON.parse(p));
+  });
+  const seenP = new Set();
+  const platforms = platformRaw.filter(p => {
+    if (seenP.has(p.label)) return false;
+    seenP.add(p.label);
+    return true;
+  });
 
   const TABS = [
     { id:'info',  label:'게임 정보', icon:'📋' },
