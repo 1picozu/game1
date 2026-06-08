@@ -29,11 +29,46 @@ function getDateRange() {
   return { from: fmt(from), to: today };
 }
 
+// Steam App ID 추출 (stores 필드 또는 clip URL에서)
+function extractSteamAppId(raw) {
+  // stores 배열에서 Steam 링크 파싱
+  const stores = raw.stores || [];
+  for (const s of stores) {
+    const url = s.url || '';
+    const m   = url.match(/store\.steampowered\.com\/app\/(\d+)/i);
+    if (m) return m[1];
+  }
+  // clip url에서도 시도
+  const clip = raw.clip?.clip || '';
+  const m2   = clip.match(/\/(\d{4,})\//);
+  if (m2) return m2[1];
+  return null;
+}
+
+// 신뢰도 높은 게임 커버 이미지 선택
+function getBestGameImage(raw) {
+  // 1순위: Steam 앱 ID가 있으면 Steam CDN 커버 이미지 (가장 정확)
+  const steamId = extractSteamAppId(raw);
+  if (steamId) {
+    return `https://cdn.cloudflare.steamstatic.com/steam/apps/${steamId}/library_600x900.jpg`;
+  }
+
+  // 2순위: RAWG background_image (API에서 주는 이미지, 보통 맞음)
+  if (raw.background_image) {
+    // RAWG 이미지 URL에 crop 파라미터 추가해 더 깔끔하게
+    return raw.background_image;
+  }
+
+  // 3순위: 게임 ID 시드로 일관된 플레이스홀더
+  return `https://picsum.photos/seed/game${raw.id}/300/400`;
+}
+
 export function normalizeGame(raw) {
   return {
     id:         raw.id,
     name:       raw.name,
-    img:        raw.background_image || `https://picsum.photos/seed/${raw.id}/200/280`,
+    img:        getBestGameImage(raw),
+    steamId:    extractSteamAppId(raw),
     metacritic: raw.metacritic ?? null,
     rating:     raw.rating ? Math.round(raw.rating * 10) / 10 : null,
     released:   raw.released ?? null,
@@ -143,9 +178,9 @@ export async function searchGamesAPI(query) {
 // ── 이달의 신작 (메인화면 5개) ────────────────────────────────────────
 // 인지도 높은 대형 타이틀 고정 리스트
 export const FEATURED_GAMES = [
-  { id:'lol',  name:'리그 오브 레전드', img:'https://cdn.cloudflare.steamstatic.com/steam/apps/359550/capsule_616x353.jpg',  metacritic:87, rating:4.1, released:'2009-10-27', genres:['MOBA','Action'],   platforms:['PC'],              color:'#c8a84b', description:'전 세계 1억명이 즐기는 5대5 MOBA. 160개 이상의 챔피언과 다양한 전략.' },
-  { id:'val',  name:'발로란트',         img:'https://images.igdb.com/igdb/image/upload/t_cover_big/co3oqb.jpg',             metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Tactical'], platforms:['PC'],              color:'#ff4e50', description:'라이엇게임즈의 전술적 5대5 FPS. 독특한 능력과 정밀한 에임 실력이 핵심.' },
-  { id:'pubg', name:'배틀그라운드',     img:'https://cdn.cloudflare.steamstatic.com/steam/apps/578080/capsule_616x353.jpg',  metacritic:86, rating:3.9, released:'2017-12-21', genres:['Shooter','Battle Royale'], platforms:['PC','XBOX','PS5'], color:'#f5a623', description:'배틀로얄 장르의 원조. 100명 중 최후의 1인이 되기 위한 생존 전투.' },
-  { id:'ow2',  name:'오버워치 2',       img:'https://images.igdb.com/igdb/image/upload/t_cover_big/co5s5v.jpg',             metacritic:76, rating:3.7, released:'2022-10-04', genres:['Shooter','Action'],   platforms:['PC','XBOX','PS5'], color:'#f99312', description:'팀 기반 히어로 FPS. 40개 이상 영웅의 조합으로 전략적 팀플레이 필요.' },
-  { id:'elden',name:'엘든 링',          img:'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg', metacritic:96, rating:4.5, released:'2022-02-25', genres:['RPG','Action'],       platforms:['PC','XBOX','PS5'], color:'#c8a84b', description:'FromSoftware × 조지 RR 마틴. GOTY 2022 수상. 오픈월드 액션 RPG의 정수.' },
+  { id:'lol',  name:'리그 오브 레전드', img:'https://www.riotgames.com/nipplesthumbnail/3BjAxAJzLf/vi_cover.jpg', imgFallback:'https://cdn2.steamgriddb.com/grid/e4da3b7fbbce2345d7772b0674a318d5.jpg', metacritic:87, rating:4.1, released:'2009-10-27', genres:['MOBA','Action'],   platforms:['PC'],              color:'#c8a84b', description:'전 세계 1억명이 즐기는 5대5 MOBA. 160개 이상의 챔피언과 다양한 전략.' },
+  { id:'val',  name:'발로란트',         img:'https://cdn2.steamgriddb.com/grid/6ea1f8c9087c78b6a2f55c70f9e42b3c.png',   imgFallback:'https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt3f072336e3f3ade4/63096d7be4a8c30af83d7a11/Valorant_2022_E5A2_PlayVALORANT_ContentStackThumbnail_1200x625_MB01.jpg', metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Tactical'], platforms:['PC'],              color:'#ff4e50', description:'라이엇게임즈의 전술적 5대5 FPS. 독특한 능력과 정밀한 에임 실력이 핵심.' },
+  { id:'pubg', name:'배틀그라운드',     img:'https://cdn.cloudflare.steamstatic.com/steam/apps/578080/library_600x900.jpg',   imgFallback:'https://cdn.cloudflare.steamstatic.com/steam/apps/578080/capsule_616x353.jpg',  metacritic:86, rating:3.9, released:'2017-12-21', genres:['Shooter','Battle Royale'], platforms:['PC','Xbox','PS5'], color:'#f5a623', description:'배틀로얄 장르의 원조. 100명 중 최후의 1인이 되기 위한 생존 전투.' },
+  { id:'ow2',  name:'오버워치 2',       img:'https://blz-contentstack-images.akamaized.net/v3/assets/blt2477dcaf4ebd440c/blt6b85dc5a9c072870/62e1a6a83c59a454d44bfeeb/OW2-Logo-KeyArt.png', imgFallback:'https://cdn2.steamgriddb.com/grid/c4ca4238a0b923820dcc509a6f75849b.jpg', metacritic:76, rating:3.7, released:'2022-10-04', genres:['Shooter','Action'],   platforms:['PC','Xbox','PS5'], color:'#f99312', description:'팀 기반 히어로 FPS. 40개 이상 영웅의 조합으로 전략적 팀플레이 필요.' },
+  { id:'elden',name:'엘든 링',          img:'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/library_600x900.jpg',  imgFallback:'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg', metacritic:96, rating:4.5, released:'2022-02-25', genres:['RPG','Action'],       platforms:['PC','Xbox','PS5'], color:'#c8a84b', description:'FromSoftware × 조지 RR 마틴. GOTY 2022 수상. 오픈월드 액션 RPG의 정수.' },
 ];
