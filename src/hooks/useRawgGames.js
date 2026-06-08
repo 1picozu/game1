@@ -194,8 +194,8 @@ export const FEATURED_GAMES = [
     description:'전 세계 1억명이 즐기는 5대5 MOBA. 160개 이상의 챔피언과 다양한 전략.' },
 
   { id:'val',  name:'발로란트',
-    img:'https://media.rawg.io/media/games/b11/b115173b2ac3fa17a41f2c2d28df9e12.jpg',
-    imgFallback:'https://media.rawg.io/media/screenshots/24e/24e3ea72c9c9ea5286600fc8a9e8a2d3.jpg',
+    img:'/valorant.jpg',
+    imgFallback:'https://media.rawg.io/media/games/b11/b115173b2ac3fa17a41f2c2d28df9e12.jpg',
     rawgId: 351593,
     metacritic:80, rating:4.0, released:'2020-06-02',
     genres:['Shooter','Tactical'], platforms:['PC'], color:'#ff4e50',
