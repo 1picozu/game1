@@ -176,14 +176,12 @@ export function useRawgGames() {
 // ── FeaturedGames 용 하드코딩 데이터 ─────────────────────────────
 // 메인화면 인기 게임 섹션에서 사용 (API 로딩 전에도 즉시 표시)
 export const FEATURED_GAMES = [
-  // Steam 헤더 이미지 (header.jpg — 항상 로드됨)
-  { id:578080,  name:'PUBG: BATTLEGROUNDS',      img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/578080/header.jpg',   metacritic:86, rating:3.5,  released:'2017-12-21', genres:['Shooter','Massively Multiplayer'],  color:'#f5a623', platforms:['PC'] },
-  { id:2357570, name:'Overwatch 2',              img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2357570/header.jpg',  metacritic:83, rating:3.6,  released:'2023-08-10', genres:['Shooter','Massively Multiplayer'],  color:'#f99312', platforms:['PC'] },
-  // 라이엇 공식 CDN 이미지
-  { id:99999,   name:'League of Legends',        img:'https://www.leagueoflegends.com/static/open-graph-b580f0311e7b36d2aac0d8c0e09a6541.jpg',  metacritic:78, rating:3.8,  released:'2009-10-27', genres:['Massively Multiplayer','Strategy'], color:'#c8a84b', platforms:['PC'] },
-  { id:99998,   name:'VALORANT',                 img:'https://www.valorant.com/valorant-social.jpg',                                            metacritic:80, rating:4.0,  released:'2020-06-02', genres:['Shooter','Massively Multiplayer'],  color:'#ff4757', platforms:['PC'] },
-  { id:13536,   name:'Elden Ring',               img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg',  metacritic:96, rating:4.67, released:'2022-02-25', genres:['Action','RPG'],                     color:'#c8a84b', platforms:['PC','PlayStation 4','Xbox One'] },
-  { id:58175,   name:'God of War',               img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1593500/header.jpg',  metacritic:94, rating:4.63, released:'2018-04-20', genres:['Action','Adventure'],               color:'#4a9eff', platforms:['PC','PlayStation 4'] },
-  { id:3328,    name:'The Witcher 3: Wild Hunt',  img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg',   metacritic:92, rating:4.64, released:'2015-05-18', genres:['RPG','Action'],                     color:'#7c5cfc', platforms:['PC','PlayStation 4','Xbox One'] },
-  { id:28,      name:'Red Dead Redemption 2',    img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg',  metacritic:97, rating:4.66, released:'2019-11-05', genres:['Action','Adventure'],               color:'#c8a84b', platforms:['PC','PlayStation 4','Xbox One'] },
+  // 라이엇 공식 CDN
+  { id:99999,   name:'League of Legends',   img:'https://www.leagueoflegends.com/static/open-graph-b580f0311e7b36d2aac0d8c0e09a6541.jpg',                 metacritic:78, rating:3.8, released:'2009-10-27', genres:['Massively Multiplayer','Strategy'], color:'#c8a84b', platforms:['PC'] },
+  { id:99998,   name:'VALORANT',            img:'https://www.valorant.com/valorant-social.jpg',                                                             metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Massively Multiplayer'],  color:'#ff4757', platforms:['PC'] },
+  // Steam 공식 헤더
+  { id:2357570, name:'Overwatch 2',         img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2357570/header.jpg',                    metacritic:83, rating:3.6, released:'2023-08-10', genres:['Shooter','Massively Multiplayer'],  color:'#f99312', platforms:['PC','PlayStation 4','Xbox One'] },
+  { id:578080,  name:'PUBG: BATTLEGROUNDS', img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/578080/header.jpg',                     metacritic:86, rating:3.5, released:'2017-12-21', genres:['Shooter','Massively Multiplayer'],  color:'#f5a623', platforms:['PC','PlayStation 4','Xbox One'] },
+  // 명조 (Wuthering Waves) — Kuro Games 공식
+  { id:99997,   name:'명조: Wuthering Waves', img:'https://cdn.kurogame.net/wuthering-waves/qs/20240522/wutheringwaves-keyart-og-1200x630_20240522_en.jpg', metacritic:75, rating:3.9, released:'2024-05-22', genres:['Action','RPG'],                     color:'#00d68f', platforms:['PC','Android','iOS'] },
 ];
