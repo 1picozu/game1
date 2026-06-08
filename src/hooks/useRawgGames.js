@@ -177,51 +177,30 @@ export async function searchGamesAPI(query) {
 
 // ── 이달의 신작 (메인화면 5개) ────────────────────────────────────────
 // 인지도 높은 대형 타이틀 고정 리스트
-// RAWG 게임 ID 매핑 (런타임에 이미지 자동 가져오기)
-export const FEATURED_GAME_IDS = {
-  '리그 오브 레전드': 10223,   // RAWG ID
-  '발로란트':         351593,
-  '오버워치 2':       452539,
-};
-
 export const FEATURED_GAMES = [
   { id:'lol',  name:'리그 오브 레전드',
-    img:'https://media.rawg.io/media/games/78b/78bc81e247fc7171eba68dba62efb0f6.jpg',
-    imgFallback:'https://media.rawg.io/media/screenshots/0ff/0ff2b7ef77bc4b76b8c5174e28e0e499.jpg',
-    rawgId: 10223,
-    metacritic:87, rating:4.1, released:'2009-10-27',
-    genres:['MOBA','Action'], platforms:['PC'], color:'#c8a84b',
+    img:'https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-80471666c140f790f28dff68d72c384b',
+    imgFallback:'https://www.leagueoflegends.com/static/open-graph-b580f0e87f30b7a9c99f7cf4e02fc38e.jpg',
+    metacritic:87, rating:4.1, released:'2009-10-27', genres:['MOBA','Action'], platforms:['PC'], color:'#c8a84b',
     description:'전 세계 1억명이 즐기는 5대5 MOBA. 160개 이상의 챔피언과 다양한 전략.' },
-
   { id:'val',  name:'발로란트',
-    img:'https://media.rawg.io/media/games/b11/b115173b2ac3fa17a41f2c2d28df9e12.jpg',
-    imgFallback:'https://media.rawg.io/media/screenshots/24e/24e3ea72c9c9ea5286600fc8a9e8a2d3.jpg',
-    rawgId: 351593,
-    metacritic:80, rating:4.0, released:'2020-06-02',
-    genres:['Shooter','Tactical'], platforms:['PC'], color:'#ff4e50',
+    img:'https://cdn1.epicgames.com/offer/cbd5b3d310a54b12bf3fe8c41994174f/EGS_Valorant_RiotGames_S1_2560x1440-b55e4ebe5d7e2e4909f2c7325d1e0d18',
+    imgFallback:'https://www.valorant.com/static/img/og/valorant_og.jpg',
+    metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Tactical'], platforms:['PC'], color:'#ff4e50',
     description:'라이엇게임즈의 전술적 5대5 FPS. 독특한 능력과 정밀한 에임 실력이 핵심.' },
-
   { id:'pubg', name:'배틀그라운드',
-    img:'https://media.rawg.io/media/games/736/73619bd336c894d6941d926bfd563946.jpg',
-    imgFallback:'https://media.rawg.io/media/screenshots/4e9/4e9c1a5f0a67a8c9cca8c8a27f7c6bf4.jpg',
-    rawgId: 578080,
-    metacritic:86, rating:3.9, released:'2017-12-21',
-    genres:['Shooter','Battle Royale'], platforms:['PC','Xbox','PS5'], color:'#f5a623',
+    img:'https://cdn.cloudflare.steamstatic.com/steam/apps/578080/library_600x900.jpg',
+    imgFallback:'https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg',
+    metacritic:86, rating:3.9, released:'2017-12-21', genres:['Shooter','Battle Royale'], platforms:['PC','Xbox','PS5'], color:'#f5a623',
     description:'배틀로얄 장르의 원조. 100명 중 최후의 1인이 되기 위한 생존 전투.' },
-
   { id:'ow2',  name:'오버워치 2',
-    img:'https://media.rawg.io/media/games/1fc/1fcac8bc1efd5790cef806e7a3fb8ae5.jpg',
-    imgFallback:'https://media.rawg.io/media/screenshots/a42/a42f48929f1e12b8fee3cdf83dd574f0.jpg',
-    rawgId: 452539,
-    metacritic:76, rating:3.7, released:'2022-10-04',
-    genres:['Shooter','Action'], platforms:['PC','Xbox','PS5'], color:'#f99312',
+    img:'https://cdn1.epicgames.com/offer/0a84818055e740a7be9a5bfcfce7f4c4/EGS_Overwatch2_BlizzardEntertainment_S1_2560x1440-3e18b7fb7acbc893a99571b13fdc52fb',
+    imgFallback:'https://bnetcmsus-a.akamaihd.net/cms/gallery/NFOPBR9DV21A1539195002625.jpg',
+    metacritic:76, rating:3.7, released:'2022-10-04', genres:['Shooter','Action'], platforms:['PC','Xbox','PS5'], color:'#f99312',
     description:'팀 기반 히어로 FPS. 40개 이상 영웅의 조합으로 전략적 팀플레이 필요.' },
-
   { id:'elden',name:'엘든 링',
-    img:'https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg',
+    img:'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/library_600x900.jpg',
     imgFallback:'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg',
-    rawgId: 326243,
-    metacritic:96, rating:4.5, released:'2022-02-25',
-    genres:['RPG','Action'], platforms:['PC','Xbox','PS5'], color:'#c8a84b',
+    metacritic:96, rating:4.5, released:'2022-02-25', genres:['RPG','Action'], platforms:['PC','Xbox','PS5'], color:'#c8a84b',
     description:'FromSoftware × 조지 RR 마틴. GOTY 2022 수상. 오픈월드 액션 RPG의 정수.' },
 ];
