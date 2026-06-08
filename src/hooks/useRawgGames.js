@@ -176,12 +176,9 @@ export function useRawgGames() {
 // ── FeaturedGames 용 하드코딩 데이터 ─────────────────────────────
 // 메인화면 인기 게임 섹션에서 사용 (API 로딩 전에도 즉시 표시)
 export const FEATURED_GAMES = [
-  // 라이엇 공식 CDN
-  { id:99999,   name:'League of Legends',   img:'https://www.leagueoflegends.com/static/open-graph-b580f0311e7b36d2aac0d8c0e09a6541.jpg',                 metacritic:78, rating:3.8, released:'2009-10-27', genres:['Massively Multiplayer','Strategy'], color:'#c8a84b', platforms:['PC'] },
-  { id:99998,   name:'VALORANT',            img:'https://www.valorant.com/valorant-social.jpg',                                                             metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Massively Multiplayer'],  color:'#ff4757', platforms:['PC'] },
-  // Steam 공식 헤더
-  { id:2357570, name:'Overwatch 2',         img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2357570/header.jpg',                    metacritic:83, rating:3.6, released:'2023-08-10', genres:['Shooter','Massively Multiplayer'],  color:'#f99312', platforms:['PC','PlayStation 4','Xbox One'] },
-  { id:578080,  name:'PUBG: BATTLEGROUNDS', img:'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/578080/header.jpg',                     metacritic:86, rating:3.5, released:'2017-12-21', genres:['Shooter','Massively Multiplayer'],  color:'#f5a623', platforms:['PC','PlayStation 4','Xbox One'] },
-  // 명조 (Wuthering Waves) — Kuro Games 공식
-  { id:99997,   name:'명조: Wuthering Waves', img:'https://cdn.kurogame.net/wuthering-waves/qs/20240522/wutheringwaves-keyart-og-1200x630_20240522_en.jpg', metacritic:75, rating:3.9, released:'2024-05-22', genres:['Action','RPG'],                     color:'#00d68f', platforms:['PC','Android','iOS'] },
+  { id:99999,   name:'League of Legends',      img:'https://media.rawg.io/media/games/c5b/c5b19f4a7c2f2b1c7c3c6e8e7e7e7e7e.jpg', metacritic:78, rating:3.8, released:'2009-10-27', genres:['Massively Multiplayer','Strategy'], color:'#c8a84b', platforms:['PC'] },
+  { id:99998,   name:'VALORANT',               img:'https://media.rawg.io/media/games/736/73619bd336c894d6941d926bfd563946.jpg', metacritic:80, rating:4.0, released:'2020-06-02', genres:['Shooter','Massively Multiplayer'],  color:'#ff4757', platforms:['PC'] },
+  { id:2357570, name:'Overwatch 2',            img:'https://media.rawg.io/media/games/586/586d1f2b5e57a7cffe8f4754651b6d8a.jpg', metacritic:83, rating:3.6, released:'2023-08-10', genres:['Shooter','Massively Multiplayer'],  color:'#f99312', platforms:['PC'] },
+  { id:578080,  name:'PUBG: BATTLEGROUNDS',    img:'https://media.rawg.io/media/games/736/73619bd336c894d6941d926bfd563946.jpg', metacritic:86, rating:3.5, released:'2017-12-21', genres:['Shooter','Massively Multiplayer'],  color:'#f5a623', platforms:['PC'] },
+  { id:99997,   name:'명조: Wuthering Waves',  img:'https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg', metacritic:75, rating:3.9, released:'2024-05-22', genres:['Action','RPG'],                     color:'#00d68f', platforms:['PC'] },
 ];
