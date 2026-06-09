@@ -15,9 +15,9 @@ const metaC  = s => s>=75?'#00d68f':s>=50?'#f5a623':'#ff4757';
 
 // ── 유명 게임 YouTube ID 맵 ─────────────────────────────────────
 const KNOWN_YT = {
-  '리그 오브 레전드':'BGtROJeMur4',
+  '리그 오브 레전드':'dv_pFPEBYlg',
   '발로란트':        'e_E9W2vsRbQ',
-  '배틀그라운드':    'PKRMk7dSQmI',
+  '배틀그라운드':    'iqYTTyGVqsA',
   '오버워치 2':      'dZl1yGUetjI',
   '엘든 링':         'E3Huy2cdih0',
 };
