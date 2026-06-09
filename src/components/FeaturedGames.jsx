@@ -30,21 +30,7 @@ export default function FeaturedGames() {
   const { navigate }    = useApp();
   const [hovered,       setHovered]       = useState(null);
   const [selectedGame,  setSelectedGame]  = useState(null);
-  // 런타임 이미지 상태: { [gameId]: url }
-  const [liveImgs,      setLiveImgs]      = useState({});
-
-  // API 키 있으면 각 게임 이미지 갱신
-  useEffect(() => {
-    if (!RAWG_KEY) return;
-    TOP_GAMES.forEach(g => {
-      if (!g.rawgId) return;
-      fetchGameImage(g.rawgId).then(url => {
-        if (url) setLiveImgs(prev => ({ ...prev, [g.id]: url }));
-      });
-    });
-  }, []);
-
-  const getImg = (g) => liveImgs[g.id] || g.img;
+  const getImg = (g) => g.img;
 
   return (
     <div style={{ marginBottom:28 }}>
