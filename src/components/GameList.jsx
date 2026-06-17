@@ -319,9 +319,19 @@ function AIRecommendModal({ games, onClose, onDetail }) {
     if (step < SURVEY_STEPS.length - 1) {
       setStep(s => s + 1);
     } else {
-      // 결과 계산
+      // 결과 계산 — 취향 점수 + 평점/인지도 가중치
       const scored = games
-        .map(g => ({ game:g, score:matchScore(g, answers) }))
+        .map(g => {
+          let s = matchScore(g, answers);
+          // 평점 보너스 (0~5점 → 최대 +2)
+          if (g.rating >= 4.5) s += 2;
+          else if (g.rating >= 4.0) s += 1.5;
+          else if (g.rating >= 3.5) s += 1;
+          // 메타크리틱 보너스
+          if (g.metacritic >= 90) s += 2;
+          else if (g.metacritic >= 80) s += 1;
+          return { game:g, score:s };
+        })
         .filter(x => x.score > 0)
         .sort((a,b) => b.score - a.score)
         .map(x => x.game);
@@ -464,22 +474,32 @@ export default function GameList({ fullPage=false }) {
 
   const [category,   setCategory]   = useState('all');
   const [search,     setSearch]     = useState('');
+  const [sortBy,     setSortBy]     = useState('rating'); // rating | released | metacritic | name
   const [showAI,     setShowAI]     = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const [searchLoading, setSearchLoading] = useState(false);
-  const [selectedGame,  setSelectedGame]  = useState(null); // 상세 모달
+  const [selectedGame,  setSelectedGame]  = useState(null);
   const searchTimer = useRef(null);
 
   const pool = fullPage ? games : games.slice(0, 10);
 
   const catFilter = CATEGORIES.find(c=>c.id===category)?.filter ?? (()=>true);
 
-  // 검색 중이면 searchResults, 아니면 pool에서 카테고리 필터
   const baseGames = searchResults !== null ? searchResults : pool;
-  const displayGames = baseGames.filter(g => {
+
+  // 정렬 적용
+  const sortedGames = [...baseGames.filter(g => {
     if (searchResults === null && category !== 'all' && !catFilter(g)) return false;
     return true;
+  })].sort((a, b) => {
+    if (sortBy === 'rating')      return (b.rating     || 0) - (a.rating     || 0);
+    if (sortBy === 'metacritic')  return (b.metacritic || 0) - (a.metacritic || 0);
+    if (sortBy === 'released')    return (b.released   || '').localeCompare(a.released || '');
+    if (sortBy === 'name')        return a.name.localeCompare(b.name, 'ko');
+    return 0;
   });
+
+  const displayGames = sortedGames;
 
   // 검색어 변경 시 디바운스 처리
   const handleSearchChange = (val) => {
@@ -549,7 +569,7 @@ export default function GameList({ fullPage=false }) {
           </div>
         )}
 
-        {/* 검색 + AI 버튼 */}
+        {/* 검색 + 정렬 + AI 버튼 */}
         {fullPage && (
           <div style={{ display:'flex', gap:10, marginBottom:14, alignItems:'center' }}>
             <div style={{ flex:1, position:'relative' }}>
@@ -567,6 +587,25 @@ export default function GameList({ fullPage=false }) {
                   style={{ position:'absolute', right:10, top:'50%', transform:'translateY(-50%)', background:'transparent', border:'none', color:'#5a5f78', cursor:'pointer', fontSize:14 }}>✕</button>
               )}
             </div>
+
+            {/* 정렬 드롭다운 */}
+            <select
+              value={sortBy}
+              onChange={e=>setSortBy(e.target.value)}
+              style={{
+                padding:'10px 12px', background:'rgba(255,255,255,0.05)',
+                border:'1px solid rgba(255,255,255,0.12)', borderRadius:8,
+                color:'#e2e4ed', fontSize:13, fontFamily:'Noto Sans KR',
+                cursor:'pointer', outline:'none', flexShrink:0,
+                colorScheme:'dark',
+              }}
+            >
+              <option value="rating"     style={{background:'#1a1c28',color:'#f0f2ff'}}>⭐ 평점순</option>
+              <option value="metacritic" style={{background:'#1a1c28',color:'#f0f2ff'}}>🏆 메타크리틱순</option>
+              <option value="released"   style={{background:'#1a1c28',color:'#f0f2ff'}}>📅 최신 출시순</option>
+              <option value="name"       style={{background:'#1a1c28',color:'#f0f2ff'}}>🔤 이름순</option>
+            </select>
+
             <button onClick={()=>setShowAI(true)}
               style={{ padding:'10px 18px', background:'linear-gradient(135deg,#7c5cfc,#4a9eff)', border:'none', borderRadius:8, color:'#fff', fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'Noto Sans KR', whiteSpace:'nowrap', flexShrink:0 }}>
               🤖 맞춤 게임 추천
