@@ -58,13 +58,17 @@ export default function CreatePost() {
   };
 
   const iS = {
-    width:'100%', background:'rgba(255,255,255,0.05)',
-    border:'1px solid rgba(255,255,255,0.12)', borderRadius:8,
-    color:'#f0f2ff', padding:'10px 13px', fontSize:13, fontWeight:500,
-    fontFamily:'Noto Sans KR', transition:'border-color 0.2s', outline:'none', boxSizing:'border-box',
+    width:'100%',
+    background:'var(--input-bg, rgba(255,255,255,0.05))',
+    border:'1px solid var(--input-border, rgba(255,255,255,0.12))',
+    borderRadius:8,
+    color:'var(--text-main, #f0f2ff)',
+    padding:'10px 13px', fontSize:13, fontWeight:600,
+    fontFamily:'Noto Sans KR', transition:'border-color 0.2s',
+    outline:'none', boxSizing:'border-box',
   };
   const fi = e => e.currentTarget.style.borderColor = accentColor;
-  const fo = e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+  const fo = e => e.currentTarget.style.borderColor = 'var(--input-border, rgba(255,255,255,0.12))';
 
   const TIME_PRESETS = ['지금 바로','30분 후','1시간 후','오늘 저녁 7시','오늘 저녁 8시','오늘 저녁 9시','오늘 밤 10시','오늘 밤 11시','내일 오전'];
 
