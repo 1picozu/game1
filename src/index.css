@@ -248,3 +248,37 @@ body {
 
 /* 게시판 본문 텍스트 */
 .board-content { color: #d0d4e4; font-weight: 500; line-height: 1.85; }
+
+/* ── CSS 변수: 다크/라이트 모드 입력 필드 ── */
+:root {
+  --input-bg: rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.12);
+  --text-main: #f0f2ff;
+  --text-sub: #b0b8d0;
+}
+
+body.light {
+  --input-bg: #ffffff;
+  --input-border: rgba(0,0,0,0.15);
+  --text-main: #1a1d2e;
+  --text-sub: #4a5068;
+}
+
+/* 라이트모드 input/select/textarea 글씨 강제 */
+body.light input,
+body.light select,
+body.light textarea {
+  color: #1a1d2e !important;
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.15) !important;
+}
+
+body.light input::placeholder,
+body.light textarea::placeholder {
+  color: #9aa0b8 !important;
+}
+
+body.light select option {
+  background: #ffffff !important;
+  color: #1a1d2e !important;
+}
